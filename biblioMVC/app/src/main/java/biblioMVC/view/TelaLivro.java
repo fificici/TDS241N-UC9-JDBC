@@ -202,9 +202,11 @@ public class TelaLivro extends javax.swing.JFrame {
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
+        ArrayList<String> listaLivros = livroController.listarLivros();
         
-        String resultado = String.join(" \n", livroController.listarLivros());
-        modeloLista.addElement(resultado);
+        for (String livro : listaLivros){
+            modeloLista.addElement(livro);
+        }
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**

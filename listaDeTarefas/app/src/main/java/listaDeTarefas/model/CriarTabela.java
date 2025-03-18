@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class CriarTabela {
     
-    public static void criarTabelaLivros(Connection conexao) {
+    public static void criarTabelaTarefas(Connection conexao) {
         
-        String sql = "CREATE TABLE tarefas (\n" +
-                          " id INT AUTO_INCREMENT PRIMARY KEY,\n" +
-                          "titulo VARCHAR(255) NOT NULL,\n" +
-                          "descricao TEXT,\n" +
-                          "dataVencimeto DATE,\n" +
-                          " status ENUM('pendente', 'concluido') DEFAULT 'pendente'\n" +
+        String sql = "CREATE TABLE IF NOT EXISTS tarefas (" +
+                          " id INT AUTO_INCREMENT PRIMARY KEY," +
+                          "titulo VARCHAR(255) NOT NULL," +
+                          "descricao TEXT," +
+                          "dataVencimento DATE," +
+                          "status VARCHAR(20)" +
                           ");";
 
         try (Statement stmt = conexao.createStatement()) {

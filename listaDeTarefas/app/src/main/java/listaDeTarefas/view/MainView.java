@@ -4,17 +4,31 @@
  */
 package listaDeTarefas.view;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import listaDeTarefas.controller.TarefaController;
+
 /**
  *
  * @author FELIPECANTINI
  */
 public class MainView extends javax.swing.JFrame {
+    
+    private TarefaController tarefaController;
+    
+    private DefaultListModel<String> modeloLista;
 
     /**
      * Creates new form MainView
      */
     public MainView() {
         initComponents();
+        
+        tarefaController = new TarefaController();
+        
+        modeloLista = new DefaultListModel<>();
+        listaTarefas.setModel(modeloLista);
     }
 
     /**
@@ -29,7 +43,7 @@ public class MainView extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         painelTarefas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaTarefas = new javax.swing.JList<>();
         tituloTxt = new javax.swing.JTextField();
         dataTxt = new javax.swing.JTextField();
         descricaoTxt = new javax.swing.JTextField();
@@ -52,7 +66,7 @@ public class MainView extends javax.swing.JFrame {
 
         painelTarefas.setBackground(new java.awt.Color(29, 15, 96));
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaTarefas);
 
         tituloTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +87,11 @@ public class MainView extends javax.swing.JFrame {
         });
 
         btnListar.setText("Listar");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,16 +104,20 @@ public class MainView extends javax.swing.JFrame {
 
         btnDeletar.setText("Deletar");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Titulo");
+        jLabel1.setFont(new java.awt.Font("Californian FB", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Título");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Californian FB", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descrição");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Californian FB", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Data");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Californian FB", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Lista de Tarefas");
 
         javax.swing.GroupLayout painelTarefasLayout = new javax.swing.GroupLayout(painelTarefas);
@@ -122,18 +145,18 @@ public class MainView extends javax.swing.JFrame {
                         .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelTarefasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(221, 221, 221))
+                .addGap(183, 183, 183))
         );
         painelTarefasLayout.setVerticalGroup(
             painelTarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelTarefasLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel4)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(painelTarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelTarefasLayout.createSequentialGroup()
                         .addGroup(painelTarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -156,7 +179,7 @@ public class MainView extends javax.swing.JFrame {
                             .addComponent(btnDeletar)
                             .addComponent(btnAtualizar)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,7 +214,31 @@ public class MainView extends javax.swing.JFrame {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
+        
+        String titulo = tituloTxt.getText();
+        String descricao = descricaoTxt.getText();
+        String dataVencimento = dataTxt.getText();
+        
+        String mensagem = tarefaController.adicionarTarefa(titulo, descricao, dataVencimento);
+        JOptionPane.showMessageDialog(this, mensagem);
+        
+        if (mensagem.equals("Tarefa inserida com sucesso!")) {
+            tituloTxt.setText("");
+            descricaoTxt.setText("");
+            dataTxt.setText("");
+        }
+        
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        // TODO add your handling code here:
+        
+        ArrayList<String> listaTarefas = tarefaController.listarTarefas();
+        
+        for (String tarefa : listaTarefas){
+            modeloLista.addElement(tarefa);
+        }
+    }//GEN-LAST:event_btnListarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,9 +286,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JList<String> listaTarefas;
     private javax.swing.JPanel painelTarefas;
     private javax.swing.JTextField tituloTxt;
     // End of variables declaration//GEN-END:variables

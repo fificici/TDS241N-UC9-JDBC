@@ -57,7 +57,7 @@ public class TarefaDAO {
                     
                     String titulos = rs.getString("titulo");
                     String descricoes = rs.getString("descricao");
-                    String datas = rs.getString("dataValidade");
+                    String datas = rs.getString("dataVencimento");
                     int id = rs.getInt("id");
                     String statuss = rs.getString("status");
                     

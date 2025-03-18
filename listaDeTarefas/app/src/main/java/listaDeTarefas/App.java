@@ -3,12 +3,19 @@
  */
 package listaDeTarefas;
 
+import java.sql.Connection;
+import listaDeTarefas.model.ConexaoSQLite;
+import listaDeTarefas.model.CriarTabela;
+import listaDeTarefas.view.MainView;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        
+        Connection conexao = ConexaoSQLite.conectar();
+        
+        CriarTabela.criarTabelaTarefas(conexao);
+        
+       new MainView().setVisible(true);
     }
 }

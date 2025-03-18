@@ -17,11 +17,11 @@ public class Tarefa {
     private String status;
 
     // Construtor
-    public Tarefa( String titulo, String autor, String descricao) {
+    public Tarefa( String titulo, String descricao, String dataVencimento) {
         
         this.titulo = titulo;
-        this.descricao = autor;
         this.descricao = descricao;
+        this.dataVencimento = dataVencimento;
         
     }
 

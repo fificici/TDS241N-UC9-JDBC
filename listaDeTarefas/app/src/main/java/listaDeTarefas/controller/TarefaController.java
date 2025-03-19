@@ -22,11 +22,11 @@ public class TarefaController {
         
     }
     
-    public String adicionarTarefa(String titulo, String descricao, String dataVencimento) {
+    public String adicionarTarefa(String titulo, String descricao, String dataVencimento, String status) {
         
         try {
             
-            Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento);
+            Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento, status);
             
             tarefaDAO.adicionarTarefa(tarefa);
             

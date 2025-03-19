@@ -218,8 +218,10 @@ public class MainView extends javax.swing.JFrame {
         String titulo = tituloTxt.getText();
         String descricao = descricaoTxt.getText();
         String dataVencimento = dataTxt.getText();
+        String status = "Pendente";
+
         
-        String mensagem = tarefaController.adicionarTarefa(titulo, descricao, dataVencimento);
+        String mensagem = tarefaController.adicionarTarefa(titulo, descricao, dataVencimento, status);
         JOptionPane.showMessageDialog(this, mensagem);
         
         if (mensagem.equals("Tarefa inserida com sucesso!")) {

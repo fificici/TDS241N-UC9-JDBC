@@ -26,13 +26,14 @@ public class TarefaDAO {
 
     public void adicionarTarefa(Tarefa tarefa) {
         
-        String sql = "INSERT INTO tarefas (titulo, descricao, dataVencimento) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tarefas (titulo, descricao, dataVencimento, status) VALUES (?, ?, ?, ?)";
         
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
             stmt.setString(3, tarefa.getDataVencimento());
+            stmt.setString(4, tarefa.getStatus());
             
             stmt.executeUpdate();
             
@@ -61,10 +62,9 @@ public class TarefaDAO {
                     int id = rs.getInt("id");
                     String statuss = rs.getString("status");
                     
-                    Tarefa tarefa = new Tarefa(titulos, descricoes, datas);
+                    Tarefa tarefa = new Tarefa(titulos, descricoes, datas, statuss);
                     
                     tarefa.setId(id);
-                    tarefa.setStatus(statuss);
                     tarefas.add(tarefa);
 
                 }

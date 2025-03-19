@@ -18,7 +18,7 @@ public class CriarTabela {
     public static void criarTabelaTarefas(Connection conexao) {
         
         String sql = "CREATE TABLE IF NOT EXISTS tarefas (" +
-                          " id INT AUTO_INCREMENT PRIMARY KEY," +
+                          "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                           "titulo VARCHAR(255) NOT NULL," +
                           "descricao TEXT," +
                           "dataVencimento DATE," +

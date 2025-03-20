@@ -4,6 +4,7 @@
  */
 package listaDeTarefas.controller;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import listaDeTarefas.model.Tarefa;
 import listaDeTarefas.model.TarefaDAO;
@@ -30,7 +31,7 @@ public class TarefaController {
             
             tarefaDAO.adicionarTarefa(tarefa);
             
-            return "Tarefa adicionado com sucesso!";
+            return "Tarefa adicionada com sucesso!";
             
         } catch (NumberFormatException e) {
         
@@ -60,4 +61,28 @@ public class TarefaController {
         
         return listaTarefas;
     }
+    
+    public String deletarTarefa(int index) {
+        
+        try {
+            ArrayList<Tarefa> tarefas = tarefaDAO.listarTarefas();
+
+        
+            if (index >= 0 && index < tarefas.size()) {
+                
+                int idTarefa = tarefas.get(index).getId(); 
+                
+                tarefaDAO.deletarTarefa(idTarefa); 
+                
+                return "Tarefa deletada com sucesso!";
+            } else {
+                
+                return "Erro: Indice invalido!";
+            }
+            
+        } catch (Exception e) {
+            
+            return "Erro ao deletar tarefa: " + e.getMessage();
+        }
+    }   
 }

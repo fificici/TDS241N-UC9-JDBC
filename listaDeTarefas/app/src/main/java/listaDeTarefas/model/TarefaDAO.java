@@ -23,7 +23,7 @@ public class TarefaDAO {
         
         conexao = ConexaoSQLite.conectar();
     }
-
+    
     public void adicionarTarefa(Tarefa tarefa) {
         
         String sql = "INSERT INTO tarefas (titulo, descricao, dataVencimento, status) VALUES (?, ?, ?, ?)";
@@ -75,5 +75,31 @@ public class TarefaDAO {
             }
             
             return tarefas;
-        }       
+        } 
+        
+        public void deletarTarefa(int id) {
+            
+            String sql = "DELETE FROM tarefas WHERE id = ?";
+        
+            try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, id);
+            
+            int rowsDeleted = pstmt.executeUpdate();
+            
+            if (rowsDeleted > 0) { 
+
+                JOptionPane.showMessageDialog(null, "Tarefa deletada com sucesso!");
+                
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Erro!");
+                
+            }
+            
+            } catch (Exception e) {
+            
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
 }

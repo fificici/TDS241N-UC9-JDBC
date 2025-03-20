@@ -16,7 +16,7 @@ public class ConexaoSQLite {
     public Connection conectar() {
         
         Connection conexao = null;
-        String url = "jdbc:sqlite:Usuarios.db";
+        String url = "jdbc:sqlite:Users.db";
         
         try {
             

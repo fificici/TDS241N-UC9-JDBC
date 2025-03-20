@@ -5,6 +5,7 @@
 package projetoLogin;
 
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -150,6 +151,25 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        
+        ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
+        Connection conexao = conexaoSQLite.conectar();
+        
+              
+        if (LogarUser.logarUsuarios(conexao, user.getText(), password.getText())) {
+            String nome = user.getText();
+            
+            JOptionPane.showMessageDialog(this, "Login bem-sucedido!");
+            String [] arrayUser = BuscarUsuario.buscarUsuario(conexao, nome);
+
+            new TelaUsuario(arrayUser[0], arrayUser[1], arrayUser[2]).setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario ou senha incorretos!", "Erro Login", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
@@ -157,7 +177,11 @@ public class TelaLogin extends javax.swing.JFrame {
         ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
         Connection conexao = conexaoSQLite.conectar();
         
-        InserirUser.inserirUsuario(conexao, user.getText(), password.getText());
+        if (InserirUser.inserirUsuario(conexao, user.getText(), password.getText())) {
+            JOptionPane.showMessageDialog(this, "Usuario cadastrado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario ja registrado!", "Erro Sign In", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnSignInActionPerformed
 
     /**

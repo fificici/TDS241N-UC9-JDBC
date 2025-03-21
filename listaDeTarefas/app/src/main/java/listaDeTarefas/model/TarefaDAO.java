@@ -144,37 +144,29 @@ public class TarefaDAO {
         return false;
     }
         
-        public String[] buscarTarefa(int idTarefa) {
-
-        String[] dadosTarefa = new String[4];
+    public String[] buscarTarefa(int idTarefa) {
         
-
+        String[] dadosTarefa = null; 
         String sql = "SELECT * FROM tarefas WHERE id = ?";
-        
+
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-
             stmt.setInt(1, idTarefa);
-            
 
-            ResultSet rs = stmt.executeQuery();
-            
-
-            if (rs.next()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 
-                dadosTarefa[0] = rs.getString("id");
-                dadosTarefa[1] = rs.getString("titulo");
-                dadosTarefa[2] = rs.getString("descricao");
-                dadosTarefa[3] = rs.getString("dataVencimento");
-                
-            } else {
-                
-                JOptionPane.showMessageDialog(null, "Erro!");
+                if (rs.next()) {
+                    dadosTarefa = new String[4]; 
+                    dadosTarefa[0] = rs.getString("id");
+                    dadosTarefa[1] = rs.getString("titulo");
+                    dadosTarefa[2] = rs.getString("descricao");
+                    dadosTarefa[3] = rs.getString("dataVencimento");
+                }
             }
+            
         } catch (Exception e) {
-       
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            
+            JOptionPane.showMessageDialog(null, "Erro ao buscar tarefa: " + e.getMessage());
         }
-        
 
         return dadosTarefa;
     }

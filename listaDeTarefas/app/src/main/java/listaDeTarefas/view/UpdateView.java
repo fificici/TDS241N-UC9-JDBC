@@ -4,6 +4,9 @@
  */
 package listaDeTarefas.view;
 
+import java.sql.Connection;
+import listaDeTarefas.model.ConexaoSQLite;
+
 /**
  *
  * @author FELIPECANTINI
@@ -13,8 +16,19 @@ public class UpdateView extends javax.swing.JFrame {
     /**
      * Creates new form UpdateView
      */
-    public UpdateView() {
+    
+    ConexaoSQLite conexaoSQLite = new ConexaoSQLite();
+    
+    Connection conexao = conexaoSQLite.conectar();
+    
+    
+    public UpdateView(String id, String titulo, String descricao, String dataVencimento) {
+        
         initComponents();
+        novoTitulo.setText(titulo);
+        novaDescricao.setText(descricao);
+        novaData.setText(dataVencimento);
+        idTarefa.setText(id);
     }
 
     /**
@@ -37,6 +51,7 @@ public class UpdateView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        idTarefa = new javax.swing.JLabel();
 
         jLabel4.setFont(new java.awt.Font("Californian FB", 1, 48)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -48,8 +63,11 @@ public class UpdateView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        painelUpdate.setBackground(new java.awt.Color(55, 24, 165));
+        painelUpdate.setBackground(new java.awt.Color(28, 15, 94));
 
+        checkConcluido.setBackground(new java.awt.Color(26, 15, 94));
+        checkConcluido.setFont(new java.awt.Font("Californian FB", 1, 14)); // NOI18N
+        checkConcluido.setForeground(new java.awt.Color(255, 255, 255));
         checkConcluido.setText("Concluir");
         checkConcluido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,37 +95,53 @@ public class UpdateView extends javax.swing.JFrame {
 
         btnAtualizar.setText("Atualizar");
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Californian FB", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Titulo");
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Californian FB", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descrição");
 
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Californian FB", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Data");
+
+        idTarefa.setFont(new java.awt.Font("Californian FB", 1, 24)); // NOI18N
+        idTarefa.setForeground(new java.awt.Color(255, 255, 255));
+        idTarefa.setText("\"");
 
         javax.swing.GroupLayout painelUpdateLayout = new javax.swing.GroupLayout(painelUpdate);
         painelUpdate.setLayout(painelUpdateLayout);
         painelUpdateLayout.setHorizontalGroup(
             painelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelUpdateLayout.createSequentialGroup()
-                .addGap(235, 235, 235)
                 .addGroup(painelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addGroup(painelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(painelUpdateLayout.createSequentialGroup()
-                            .addComponent(checkConcluido, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(40, 40, 40)
-                            .addComponent(btnAtualizar))
-                        .addGroup(painelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(novaData, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(novaDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(novoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(painelUpdateLayout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addGroup(painelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addGroup(painelUpdateLayout.createSequentialGroup()
+                                .addComponent(checkConcluido, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnAtualizar))
+                            .addComponent(novaData, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(novaDescricao, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(novoTitulo, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(painelUpdateLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(idTarefa)))
                 .addContainerGap(264, Short.MAX_VALUE))
         );
         painelUpdateLayout.setVerticalGroup(
             painelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelUpdateLayout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(novoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,7 +157,9 @@ public class UpdateView extends javax.swing.JFrame {
                 .addGroup(painelUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkConcluido, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAtualizar))
-                .addGap(60, 60, 60))
+                .addGap(38, 38, 38)
+                .addComponent(idTarefa)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,7 +222,7 @@ public class UpdateView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateView().setVisible(true);
+                new UpdateView("id", "titulo", "descricao", "dataVencimento").setVisible(true);
             }
         });
     }
@@ -194,6 +230,7 @@ public class UpdateView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JCheckBox checkConcluido;
+    private javax.swing.JLabel idTarefa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

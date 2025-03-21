@@ -84,5 +84,42 @@ public class TarefaController {
             
             return "Erro ao deletar tarefa: " + e.getMessage();
         }
-    }   
+    }
+    
+    public String atualizarTarefa(int index, String id, String novoTitulo, String novaDescricao, String novaData) {
+        
+        try {
+            
+            ArrayList<Tarefa> tarefas = tarefaDAO.listarTarefas();
+            
+            if (index >= 0 && index < tarefas.size()) {
+                
+                int idTarefa = tarefas.get(index).getId(); 
+                String tituloTarefa = tarefas.get(index).getTitulo();
+                String descricaoTarefa = tarefas.get(index).getDescricao();
+                String dataTarefa = tarefas.get(index).getDataVencimento();
+                
+                String idString = Integer.toString(idTarefa);
+                
+                tarefaDAO.atualizarTarefa(idString, tituloTarefa, descricaoTarefa, dataTarefa); 
+                
+                return "Tarefa atualizada com sucesso!";
+                
+            } else {
+                
+                return "Erro: Indice invalido!";
+            }
+            
+        } catch (Exception e) {
+            
+            return "Erro ao deletar tarefa: " + e.getMessage();
+        }
+    }
+    
+    public String[] buscarTarefa(int id) {
+        
+        String[] arrayTarefa = tarefaDAO.buscarTarefa(id);
+        
+        return arrayTarefa;
+    }
 }

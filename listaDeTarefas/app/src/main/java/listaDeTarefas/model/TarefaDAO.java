@@ -102,4 +102,80 @@ public class TarefaDAO {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
+        
+        public boolean atualizarTarefa(String id, String novoTitulo, String novaDescricao, String novaData) {
+        
+        String sql = "UPDATE tarefas SET titulo = ?, descricao = ?, dataVencimento = ? WHERE id = ?";
+
+        try {
+
+            try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
+                
+                pstmt.setString(1, novoTitulo);
+                
+                pstmt.setString(2, novaDescricao);
+                
+                pstmt.setString(3, novaData);
+                
+                pstmt.setString(3, id);
+
+                int rowsUpdated = pstmt.executeUpdate();
+
+                if (rowsUpdated > 0) {
+
+                    JOptionPane.showMessageDialog(null, "Tarefa atualizada com sucesso!");
+                    
+                    return true;
+                    
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "Erro!");
+                }
+                
+            } catch (Exception e) {
+
+                 JOptionPane.showMessageDialog(null, e.getMessage());
+                
+            }
+        } catch (Exception e) {
+
+             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return false;
+    }
+        
+        public String[] buscarTarefa(int idTarefa) {
+
+        String[] dadosTarefa = new String[4];
+        
+
+        String sql = "SELECT * FROM tarefas WHERE id = ?";
+        
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setInt(1, idTarefa);
+            
+
+            ResultSet rs = stmt.executeQuery();
+            
+
+            if (rs.next()) {
+                
+                dadosTarefa[0] = rs.getString("id");
+                dadosTarefa[1] = rs.getString("titulo");
+                dadosTarefa[2] = rs.getString("descricao");
+                dadosTarefa[3] = rs.getString("dataVencimento");
+                
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "Erro!");
+            }
+        } catch (Exception e) {
+       
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+
+        return dadosTarefa;
+    }
 }

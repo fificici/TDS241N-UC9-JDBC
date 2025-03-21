@@ -21,7 +21,7 @@ public class CriarTabela {
                           "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                           "titulo VARCHAR(255) NOT NULL," +
                           "descricao TEXT," +
-                          "dataVencimento DATE," +
+                          "dataVencimento VARCHAR(15)," +
                           "status VARCHAR(20)" +
                           ");";
 

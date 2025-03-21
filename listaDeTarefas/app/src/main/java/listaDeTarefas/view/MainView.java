@@ -4,10 +4,12 @@
  */
 package listaDeTarefas.view;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import listaDeTarefas.controller.TarefaController;
+import listaDeTarefas.model.ConexaoSQLite;
 import listaDeTarefas.model.Tarefa;
 
 /**
@@ -270,7 +272,21 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:       
+              
+        int index = listaTarefas.getSelectedIndex();
+        
+        String[] arrayTarefa = tarefaController.buscarTarefa(index);
+        
+        if (index == -1) {
+            
+            JOptionPane.showMessageDialog(this, "Selecione uma tarefa primeiro!");
+            
+        } else {
+            
+            new UpdateView(arrayTarefa[0], arrayTarefa[1], arrayTarefa[2], arrayTarefa[3]).setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**

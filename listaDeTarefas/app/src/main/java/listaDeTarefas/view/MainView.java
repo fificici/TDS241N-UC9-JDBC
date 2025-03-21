@@ -276,7 +276,9 @@ public class MainView extends javax.swing.JFrame {
               
         int index = listaTarefas.getSelectedIndex();
         
-        String[] arrayTarefa = tarefaController.buscarTarefa(index);
+        int indexCorrigido = index + 1;
+        
+        String[] arrayTarefa = tarefaController.buscarTarefa(indexCorrigido);
         
         if (index == -1) {
             
@@ -286,6 +288,7 @@ public class MainView extends javax.swing.JFrame {
             
             new UpdateView(arrayTarefa[0], arrayTarefa[1], arrayTarefa[2], arrayTarefa[3]).setVisible(true);
             this.dispose();
+            
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 

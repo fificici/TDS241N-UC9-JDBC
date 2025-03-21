@@ -86,40 +86,62 @@ public class TarefaController {
         }
     }
     
-    public String atualizarTarefa(int index, String id, String novoTitulo, String novaDescricao, String novaData) {
+    public String atualizarTarefa(String id, String novoTitulo, String novaDescricao, String novaData) {
+    
+    try {
         
-        try {
+        ArrayList<Tarefa> tarefas = tarefaDAO.listarTarefas();
+        
+        
+        for (Tarefa tarefa : tarefas) {
             
-            ArrayList<Tarefa> tarefas = tarefaDAO.listarTarefas();
-            
-            if (index >= 0 && index < tarefas.size()) {
+            if (Integer.toString(tarefa.getId()).equals(id)) {
                 
-                int idTarefa = tarefas.get(index).getId(); 
-                String tituloTarefa = tarefas.get(index).getTitulo();
-                String descricaoTarefa = tarefas.get(index).getDescricao();
-                String dataTarefa = tarefas.get(index).getDataVencimento();
                 
-                String idString = Integer.toString(idTarefa);
-                
-                tarefaDAO.atualizarTarefa(idString, tituloTarefa, descricaoTarefa, dataTarefa); 
+                tarefaDAO.atualizarTarefa(id, novoTitulo, novaDescricao, novaData);
                 
                 return "Tarefa atualizada com sucesso!";
-                
-            } else {
-                
-                return "Erro: Indice invalido!";
             }
-            
-        } catch (Exception e) {
-            
-            return "Erro ao deletar tarefa: " + e.getMessage();
         }
+        
+        return "Erro: Tarefa não encontrada!";
+        
+    } catch (Exception e) {
+        
+        return "Erro ao atualizar tarefa: " + e.getMessage();
     }
+}
     
     public String[] buscarTarefa(int id) {
         
         String[] arrayTarefa = tarefaDAO.buscarTarefa(id);
         
         return arrayTarefa;
+    }
+    
+     public String atualizarStatus(String id,  String novoStatus) {
+    
+    try {
+        
+        ArrayList<Tarefa> tarefas = tarefaDAO.listarTarefas();
+        
+        
+        for (Tarefa tarefa : tarefas) {
+            
+            if (Integer.toString(tarefa.getId()).equals(id)) {
+                
+                
+                tarefaDAO.atualizarStatus(id, novoStatus);
+                
+                return "Status atualizado com sucesso!";
+            }
+        }
+        
+            return "Erro: Tarefa não encontrada!";
+        
+        } catch (Exception e) {
+        
+        return "Erro ao atualizar tarefa: " + e.getMessage();
+        }
     }
 }

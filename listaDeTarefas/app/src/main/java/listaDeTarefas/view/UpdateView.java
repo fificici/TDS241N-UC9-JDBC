@@ -5,6 +5,7 @@
 package listaDeTarefas.view;
 
 import java.sql.Connection;
+import listaDeTarefas.controller.TarefaController;
 import listaDeTarefas.model.ConexaoSQLite;
 
 /**
@@ -21,6 +22,7 @@ public class UpdateView extends javax.swing.JFrame {
     
     Connection conexao = conexaoSQLite.conectar();
     
+    TarefaController tarefaController = new TarefaController();
     
     public UpdateView(String id, String titulo, String descricao, String dataVencimento) {
         
@@ -94,6 +96,11 @@ public class UpdateView extends javax.swing.JFrame {
         });
 
         btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Californian FB", 1, 18)); // NOI18N
@@ -178,6 +185,7 @@ public class UpdateView extends javax.swing.JFrame {
 
     private void checkConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkConcluidoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_checkConcluidoActionPerformed
 
     private void novoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoTituloActionPerformed
@@ -191,6 +199,25 @@ public class UpdateView extends javax.swing.JFrame {
     private void novaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novaDataActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_novaDataActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+        
+        if (checkConcluido.isSelected()) {
+            
+            tarefaController.atualizarStatus(idTarefa.getText(), "Concluído");
+            tarefaController.atualizarTarefa(idTarefa.getText(), novoTitulo.getText(), novaDescricao.getText(), novaData.getText());
+            new MainView().setVisible(true);
+            this.dispose();
+            
+        } else {
+
+            tarefaController.atualizarTarefa(idTarefa.getText(), novoTitulo.getText(), novaDescricao.getText(), novaData.getText());
+            new MainView().setVisible(true);
+            this.dispose();
+        
+        }         
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
